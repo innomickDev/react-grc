@@ -1,11 +1,5 @@
 import React, { Fragment } from "react";
-import {
-  Card,
-  CardBody,
-  Row,
-  Container,
-  Col,
-} from "reactstrap";
+import { Card, CardBody, Row, Container, Col } from "reactstrap";
 import { connect } from "react-redux";
 import compose from "compose-function";
 import { translate } from "react-multi-lang";
@@ -46,7 +40,6 @@ class SuccessClaimDetails extends React.Component {
       nextProps.getClaimsbyCodeData &&
       nextProps.getClaimsbyCodeData !== this.props.getClaimsbyCodeData
     ) {
-      // console.log(nextProps.getClaimsbyCodeData);
       this.setState({
         claimData: nextProps.getClaimsbyCodeData,
         mainLoader: false,
@@ -58,14 +51,13 @@ class SuccessClaimDetails extends React.Component {
       nextProps.getTicketAttachmentData &&
       nextProps.getTicketAttachmentData !== this.props.getTicketAttachmentData
     ) {
-      // console.log(nextProps.getTicketAttachmentData);
       this.setState({
         getTicketAttachment: nextProps.getTicketAttachmentData.attachment
           ? getFileExtension(
-            nextProps.getTicketAttachmentData.attachment.slice(0, 5)
-          ) + nextProps.getTicketAttachmentData.attachment
+              nextProps.getTicketAttachmentData.attachment.slice(0, 5)
+            ) + nextProps.getTicketAttachmentData.attachment
           : "",
-        // showTicketAttchment: true,
+
         mainLoader: false,
       });
       setTimeout(
@@ -88,13 +80,11 @@ class SuccessClaimDetails extends React.Component {
         nextProps.ClaimAttachmentData.attachment !== ""
       ) {
         this.setState({
-          ClaimAttachmentData:
-            // nextProps.ClaimAttachmentData.attachment !== "" &&
-            nextProps.ClaimAttachmentData.attachment
-              ? getFileExtension(
+          ClaimAttachmentData: nextProps.ClaimAttachmentData.attachment
+            ? getFileExtension(
                 nextProps.ClaimAttachmentData.attachment.slice(0, 5)
               ) + nextProps.ClaimAttachmentData.attachment
-              : false,
+            : false,
         });
         setTimeout(
           function () {
@@ -136,7 +126,7 @@ class SuccessClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.CLAIM_CHANNEL")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? getLangBasedDataLabel(claimData.claimSource)
                               : "none"}
                           </b>
@@ -150,7 +140,7 @@ class SuccessClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.CREATION_DATE")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? dateTimeFormat(claimData.createDate)
                               : ""}
                           </b>
@@ -167,7 +157,7 @@ class SuccessClaimDetails extends React.Component {
                           {" "}
                           {this.props.t("Claim.CATEGORY")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? getLangBasedDataLabel(claimData.category)
                               : "none"}
                           </b>
@@ -175,7 +165,7 @@ class SuccessClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.SUB_CATEGORY")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? getLangBasedDataLabel(claimData.subCategory)
                               : "none"}
                           </b>
@@ -184,7 +174,7 @@ class SuccessClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.EVENT_DATE")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? dateTimeFormat(claimData.eventDate)
                               : ""}
                           </b>
@@ -231,7 +221,7 @@ class SuccessClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.CLAIM_SRC")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? getLangBasedStationLabel(claimData.claimStation)
                               : "none"}
                           </b>
@@ -240,10 +230,10 @@ class SuccessClaimDetails extends React.Component {
                           <li className="list-group-item">
                             {this.props.t("Claim.EVENT_STATION")} :{" "}
                             <b>
-                              {claimData && claimData
+                              {claimData
                                 ? getLangBasedStationLabel(
-                                  claimData.eventStation
-                                )
+                                    claimData.eventStation
+                                  )
                                 : "none"}
                             </b>
                           </li>
@@ -267,10 +257,10 @@ class SuccessClaimDetails extends React.Component {
                           <li className="list-group-item">
                             {this.props.t("Claim.DEPART_STN")} :{" "}
                             <b>
-                              {claimData && claimData
+                              {claimData
                                 ? getLangBasedStationLabel(
-                                  claimData.departureStation
-                                )
+                                    claimData.departureStation
+                                  )
                                 : "none"}
                             </b>
                           </li>
@@ -280,10 +270,10 @@ class SuccessClaimDetails extends React.Component {
                           <li className="list-group-item">
                             {this.props.t("Claim.ARRIV_STN")} :{" "}
                             <b>
-                              {claimData && claimData
+                              {claimData
                                 ? getLangBasedStationLabel(
-                                  claimData.arrivalStation
-                                )
+                                    claimData.arrivalStation
+                                  )
                                 : "none"}
                             </b>
                           </li>
@@ -308,7 +298,7 @@ class SuccessClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.TRAVEL_DATE_TIME")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? dateTimeFormat(claimData.travelDate)
                               : ""}
                           </b>
@@ -317,7 +307,7 @@ class SuccessClaimDetails extends React.Component {
                           <li className="list-group-item">
                             {this.props.t("Claim.TARIF")} :{" "}
                             <b>
-                              {claimData && claimData
+                              {claimData
                                 ? getLangBasedTarifLabel(claimData.tarif)
                                 : "none"}
                             </b>
@@ -327,7 +317,7 @@ class SuccessClaimDetails extends React.Component {
                           <li className="list-group-item">
                             {this.props.t("Claim.UPDATE_DATE")} :{" "}
                             <b>
-                              {claimData && claimData
+                              {claimData
                                 ? dateTimeFormat(claimData.lastModifiedDate)
                                 : ""}
                             </b>

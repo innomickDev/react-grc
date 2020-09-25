@@ -1,20 +1,9 @@
 import { CLAIM } from "./actionTypes";
-import {
-  AXIOS_INSTANCE,
-  CLAIM_API,
-  CONFIG,
-} from "./apiEndPoints";
+import { AXIOS_INSTANCE, CLAIM_API, CONFIG } from "./apiEndPoints";
 import { checkHttpStatus, parseJSON } from "../utils";
 import * as base from "./baseAction";
 
 export function getClaims(queryParams) {
-  const HEADER = {
-    headers: {
-      "Content-Type": "application/json",
-      "Accept-Language": "fr-FR",
-      Authorization: JSON.parse(localStorage.getItem("foGRCAuthToken")),
-    },
-  };
   let apiPromise = "";
   return (dispatch) => {
     dispatch(base.getRequest(CLAIM.GET_CLAIMS_REQUEST));
@@ -50,22 +39,7 @@ export function getClaims(queryParams) {
         }
       })
       .catch((error) => {
-        // if(error && error.response){
         checkHttpStatus(error.response);
-        //     if(error.response.status!= 404) {
-        //         dispatch(
-        //             base.getFailure(CLAIM.GET_CLAIMS_FAILURE, {
-        //                 error: {
-        //                     data: error,
-        //                 },
-        //             })
-        //         );
-        //     }
-        // }
-        // else {
-        //     window.location.href = "/pages/error-page";
-        //     // showError("Please Check Your Internet connection");
-        // }
       });
   };
 }
@@ -100,21 +74,7 @@ export function createClaim(formData) {
         }
       })
       .catch((error) => {
-        // if(error && error.response) {
         checkHttpStatus(error.response);
-        //     if(error.response.status!= 404) {
-        //         dispatch(
-        //             base.getFailure(CLAIM.CREATE_CLAIM_FAILURE, {
-        //                 error: {
-        //                     data: error.response ? error.response.data : null,
-        //                 },
-        //             })
-        //         );
-        //     }
-        // } else {
-        //     window.location.href = "/pages/error-page";
-        // }
-
       });
   };
 }
@@ -153,20 +113,7 @@ export function getClaimsbyCode(code) {
         }
       })
       .catch((error) => {
-        // if(error && error.response) {
         checkHttpStatus(error.response);
-        //     if(error.response.status!= 404) {
-        //         dispatch(
-        //             base.getFailure(CLAIM.GET_CLAIMS_BY_CODE_FAILURE, {
-        //                 error: {
-        //                     data: error.response ? error.response.data : null,
-        //                 },
-        //             })
-        //         );
-        //     }
-        // } else {
-        //     window.location.href = "/pages/error-page";
-        // }
       });
   };
 }
@@ -198,21 +145,7 @@ export function approveClaim(data) {
         }
       })
       .catch((error) => {
-        // if(error && error.response) {
         checkHttpStatus(error.response);
-        //     if(error.response.status!= 404) {
-        //         dispatch(
-        //             base.getFailure(CLAIM.APPROVE_CLAIM_FAILURE, {
-        //                 error: {
-        //                     data: error.response ? error.response.data : null,
-        //                 },
-        //             })
-        //         );
-        //     }
-        // } else {
-        //     window.location.href = "/pages/error-page";
-        // }
-
       });
   };
 }
@@ -244,21 +177,7 @@ export function getClaimChannel(data) {
         }
       })
       .catch((error) => {
-        // if(error && error.response){
         checkHttpStatus(error.response);
-        //     if(error.response.status!= 404) {
-        //         dispatch(
-        //             base.getFailure(CLAIM.GET_CLAIM_CHANNEL_FAILURE, {
-        //                 error: {
-        //                     data: error.response ? error.response.data : null,
-        //                 },
-        //             })
-        //         );
-        //     }
-        // } else {
-        //     window.location.href = "/pages/error-page";
-        //     // showError("Please Check Your Internet connection");
-        // }
       });
   };
 }
@@ -290,20 +209,7 @@ export function updateClaimByAgent(formData) {
         }
       })
       .catch((error) => {
-        // if(error && error.response) {
         checkHttpStatus(error.response);
-        //     if(error.response.status!= 404) {
-        //         dispatch(
-        //             base.getFailure(CLAIM.UPDATE_CLAIM_BY_AGENT_FAILURE, {
-        //                 error: {
-        //                     data: error.response ? error.response.data : null,
-        //                 },
-        //             })
-        //         );
-        //     }
-        // } else {
-        //     window.location.href = "/pages/error-page";
-        // }
       });
   };
 }
@@ -334,20 +240,7 @@ export function updateTicketAttachment(formData) {
         }
       })
       .catch((error) => {
-        // if(error && error.response) {
         checkHttpStatus(error.response);
-        //     if(error.response.status!= 404) {
-        //         dispatch(
-        //             base.getFailure(CLAIM.UPDATE_TICKET_ATTACHMENT_FAILURE, {
-        //                 error: {
-        //                     data: error.response ? error.response.data : null,
-        //                 },
-        //             })
-        //         );
-        //     }
-        // } else {
-        //     window.location.href = "/pages/error-page";
-        // }
       });
   };
 }
@@ -379,21 +272,7 @@ export function updateClaimAttachment(formData) {
         }
       })
       .catch((error) => {
-        // if(error && error.response) {
         checkHttpStatus(error.response);
-        //     if(error.response.status!= 404) {
-        //         dispatch(
-        //             base.getFailure(CLAIM.UPDATE_CLAIM_ATTACHMENT_FAILURE, {
-        //                 error: {
-        //                     data: error.response ? error.response.data : null,
-        //                 },
-        //             })
-        //         );
-        //     }
-        // } else {
-        //     window.location.href = "/pages/error-page";
-        // }
-
       });
   };
 }
@@ -430,20 +309,7 @@ export function getTicketAttachment(code) {
         }
       })
       .catch((error) => {
-        // if(error && error.response) {
         checkHttpStatus(error.response);
-        //     if(error.response.status!= 404) {
-        //         dispatch(
-        //             base.getFailure(CLAIM.GET_TICKET_ATTACHMENT_FAILURE, {
-        //                 error: {
-        //                     data: error,
-        //                 },
-        //             })
-        //         );
-        //     }
-        // } else {
-        //     window.location.href = "/pages/error-page";
-        // }
       });
   };
 }
@@ -481,13 +347,6 @@ export function getClaimAttachment(code) {
       })
       .catch((error) => {
         checkHttpStatus(error.response);
-        // dispatch(
-        //   base.getFailure(CLAIM.GET_CLAIM_ATTACHMENT_FAILURE, {
-        //     error: {
-        //       data: error,
-        //     },
-        //   })
-        // );
       });
   };
 }

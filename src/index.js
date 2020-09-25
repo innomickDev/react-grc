@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
-import { Router, HashRouter, Route, Switch, BrowserRouter } from "react-router-dom";
+import { Router, HashRouter, Route, Switch } from "react-router-dom";
 import { applyMiddleware, createStore } from "redux";
 import promise from "redux-promise";
 import { Provider } from "react-redux";

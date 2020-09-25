@@ -32,35 +32,25 @@ export class CreateInitialClaim extends React.Component {
     this.state = {
       showFields: false,
       loading: false,
-      depStation: '',
-      arrStation: ''
+      depStation: "",
+      arrStation: "",
     };
   }
   componentWillReceiveProps = (nextProps, props) => {
-
     if (
       nextProps.postClaimData &&
       nextProps.postClaimData !== this.props.postClaimData
     ) {
-      // this.props.history.push("/pages/research-claim");
       this.setState({ loading: false });
       showSuccess(this.props.t("Claim.CLAIM_CREATED_SUCCESSFULLY"));
-
     }
-    // if (
-    //   nextProps.isCreateClaimError &&
-    //   nextProps.isCreateClaimError !== this.props.isCreateClaimError
-    // ) {
-    //   showError(nextProps.isCreateClaimError);
-    //   this.setState({ loading: false });
-    // }
+
     if (nextProps !== props) {
       if (nextProps.errorData && nextProps.errorData !== this.props.errorData) {
         showError(nextProps.errorData);
         this.setState({ loading: false });
       }
     }
-
   };
   showOptions = (data) => {
     if (data && data.length) {
@@ -91,9 +81,6 @@ export class CreateInitialClaim extends React.Component {
   // get sub category by categoryID
   getSubCategoriesByCategory = (e) => {
     if (e.target.value !== "0") {
-      const category = _.find(this.props.categoryData.categoryClients, {
-        code: e.target.value,
-      });
       this.props.dispatch(getSubCategoriesByCategory(e.target.value));
     } else {
       this.setState({
@@ -193,7 +180,6 @@ export class CreateInitialClaim extends React.Component {
     }
   };
   onSubmit = (formProps) => {
-    console.log('=============', formProps);
     if (formProps.eventLocation !== "Train") {
       delete formProps.departureHour;
       delete formProps.departureStationCode;
@@ -203,7 +189,10 @@ export class CreateInitialClaim extends React.Component {
       delete formProps.trainNumber;
       delete formProps.tarifCode;
     }
-    if (formProps.eventLocation == "Train" && formProps.arrivalStationCode === formProps.departureStationCode) {
+    if (
+      formProps.eventLocation == "Train" &&
+      formProps.arrivalStationCode === formProps.departureStationCode
+    ) {
       showError("La station doit être différente");
       return false;
     }
@@ -230,11 +219,17 @@ export class CreateInitialClaim extends React.Component {
     if (this.state.claimAttachment) {
       formProps.claimAttachment = this.state.claimAttachment.split(",")[1];
     }
-    if (formProps.claimCode && formProps.claimSubject && formProps.userEmail && formProps.claimSourceCode && formProps.subCategoryCode) {
+    if (
+      formProps.claimCode &&
+      formProps.claimSubject &&
+      formProps.userEmail &&
+      formProps.claimSourceCode &&
+      formProps.subCategoryCode
+    ) {
       if (formProps.eventLocation) {
         if (this.state.startDate) {
-          if(formProps.eventLocation === 'Gare'){
-            if(formProps.eventStationCode) {
+          if (formProps.eventLocation === "Gare") {
+            if (formProps.eventStationCode) {
               this.props.dispatch(createClaim(formProps));
               this.setState({ loading: true });
             } else {
@@ -250,12 +245,7 @@ export class CreateInitialClaim extends React.Component {
       } else {
         showError(this.props.t("Claim.EVENT_LOCATION_REQUIRED"));
       }
-    } else {
-    }
-      // } else {
-    //   showError(this.props.t("Claim.EVENT_LOCATION_REQUIRED"));
-    // }
-    //   showError(this.props.t("Claim.PLEASE_FILL_ALL_REQUIRED_FIELDS"));
+    } 
   };
   showList = (e) => {
     if (e.target.value === "Train") {
@@ -275,28 +265,26 @@ export class CreateInitialClaim extends React.Component {
   departureStation = (e) => {
     if (e.target.value != this.state.arrStation) {
       this.setState({
-        depStation: e.target.value
-      })
+        depStation: e.target.value,
+      });
     } else {
-      showError("La station doit être différente")
+      showError("La station doit être différente");
     }
-  }
+  };
   arrivalStation = (e) => {
-    console.log(e.target.value);
     if (e.target.value != this.state.depStation) {
       this.setState({
-        arrStation: e.target.value
-      })
+        arrStation: e.target.value,
+      });
     } else {
       e.target = null;
-      showError("La station doit être différente")
+      showError("La station doit être différente");
     }
-  }
+  };
 
   render() {
-    // console.log(this.props.postClaimData);
     const { handleSubmit } = this.props;
-    // console.log(this.props.trainTypeData, this.props.tarifData);
+
     return (
       <Fragment>
         <AvForm
@@ -352,8 +340,8 @@ export class CreateInitialClaim extends React.Component {
                       {this.showOptions(
                         this.props.channelData
                           ? getLangBasedItems(
-                            this.props.channelData.channelClients
-                          )
+                              this.props.channelData.channelClients
+                            )
                           : null
                       )}
                     </Field>
@@ -377,8 +365,8 @@ export class CreateInitialClaim extends React.Component {
                       {this.showOptions(
                         this.props.stationData
                           ? getLangBasedStations(
-                            this.props.stationData.listGare
-                          )
+                              this.props.stationData.listGare
+                            )
                           : null
                       )}
                     </Field>
@@ -426,8 +414,8 @@ export class CreateInitialClaim extends React.Component {
                       {this.showOptions(
                         this.props.categoryData
                           ? getLangBasedItems(
-                            this.props.categoryData.categoryClients
-                          )
+                              this.props.categoryData.categoryClients
+                            )
                           : null
                       )}
                     </Field>
@@ -452,9 +440,9 @@ export class CreateInitialClaim extends React.Component {
                       {this.showOptions(
                         this.props.subCategoryDataByCategory
                           ? getLangBasedItems(
-                            this.props.subCategoryDataByCategory
-                              .subCategoryClients
-                          )
+                              this.props.subCategoryDataByCategory
+                                .subCategoryClients
+                            )
                           : null
                       )}
                     </Field>
@@ -468,17 +456,9 @@ export class CreateInitialClaim extends React.Component {
                       {this.props.t("Claim.EVENT_DATE")}{" "}
                       <span className="text-danger">*</span>
                     </Label>
-                    {/* <AvField
-                        name='eventDate'
-                        type='date'
-                        component={renderTextField}
-                        placeholder="Date de l'evenement"
-                        tag={Field}
-                        required
-                      /> */}
+
                     <Datetime
                       closeOnSelect
-                      // onBlur={this.focousOut}
                       value={this.state.startDate}
                       timeFormat={false}
                       dateFormat
@@ -486,7 +466,6 @@ export class CreateInitialClaim extends React.Component {
                         readOnly: true,
                         placeholder: this.props.t("Claim.SELECT_DATE"),
                       }}
-                      // isValidDate={this.minDate}
                       onChange={(e) => this.startDate(e)}
                     />
                   </FormGroup>
@@ -546,15 +525,15 @@ export class CreateInitialClaim extends React.Component {
                         {this.showOptions(
                           this.props.stationData
                             ? getLangBasedStations(
-                              this.props.stationData.listGare
-                            )
+                                this.props.stationData.listGare
+                              )
                             : null
                         )}
                       </Field>
                     </FormGroup>
                   ) : (
-                      ""
-                    )}
+                    ""
+                  )}
                 </Col>
               </Row>
               {this.state.showFields ? (
@@ -586,7 +565,6 @@ export class CreateInitialClaim extends React.Component {
                         // validate={[required]}
                         className="form-control"
                         onChange={(e) => this.departureStation(e)}
-
                       >
                         <option value="">
                           {this.props.t("Claim.SELECT_STATION")}
@@ -594,8 +572,8 @@ export class CreateInitialClaim extends React.Component {
                         {this.showOptions(
                           this.props.stationData
                             ? getLangBasedStations(
-                              this.props.stationData.listGare
-                            )
+                                this.props.stationData.listGare
+                              )
                             : null
                         )}
                       </Field>
@@ -621,8 +599,8 @@ export class CreateInitialClaim extends React.Component {
                         {this.showOptions(
                           this.props.stationData
                             ? getLangBasedStations(
-                              this.props.stationData.listGare
-                            )
+                                this.props.stationData.listGare
+                              )
                             : null
                         )}
                       </Field>
@@ -630,8 +608,8 @@ export class CreateInitialClaim extends React.Component {
                   </Col>
                 </Row>
               ) : (
-                  ""
-                )}
+                ""
+              )}
               {this.state.showFields ? (
                 <Row>
                   <Col md={4} lg={4}>
@@ -683,8 +661,8 @@ export class CreateInitialClaim extends React.Component {
                   </Col>
                 </Row>
               ) : (
-                  ""
-                )}
+                ""
+              )}
               {this.state.showFields ? (
                 <Row>
                   <Col md={4} lg={4}>
@@ -714,8 +692,8 @@ export class CreateInitialClaim extends React.Component {
                   </Col>
                 </Row>
               ) : (
-                  ""
-                )}
+                ""
+              )}
               <br />
               <Row className="rm-z-index">
                 <Col md={7}>
@@ -723,8 +701,7 @@ export class CreateInitialClaim extends React.Component {
                     <br />
                     <FormGroup>
                       <Label for="exampleEmail">
-                        {this.props.t("Claim.CLAIM_OBJECT")}
-                        {" "}
+                        {this.props.t("Claim.CLAIM_OBJECT")}{" "}
                         <span className="text-danger">*</span>
                       </Label>
                       <AvField
@@ -823,11 +800,7 @@ CreateInitialClaim = reduxForm({
 })(CreateInitialClaim);
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
-    // categoryData: state.category.categoryData,
-    // subCategoryDataByCategory: state.subCategory.subCategoryDataByCategory,
-    // stationData: state.station.stationData,
     postClaimData: state.claim.postClaimData,
   };
 };

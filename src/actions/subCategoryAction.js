@@ -1,8 +1,8 @@
 import { SUB_CATEGORY_CONST } from "./actionTypes";
-import { AXIOS_INSTANCE, SUB_CATEGORY_API, CONFIG } from "./apiEndPoints";
+import { AXIOS_INSTANCE, SUB_CATEGORY_API } from "./apiEndPoints";
 import { checkHttpStatus, parseJSON } from "../utils";
 import * as base from "./baseAction";
-import {showError} from "../helpers";
+import { showError } from "../helpers";
 
 // action for Change password
 export function getSubCategories() {
@@ -37,18 +37,18 @@ export function getSubCategories() {
         }
       })
       .catch((error) => {
-          if(error && error.response) {
-              checkHttpStatus(error.response);
-              dispatch(
-                  base.getFailure(SUB_CATEGORY_CONST.GET_SUB_CATEGORY_FAILURE, {
-                      error: {
-                          data: error.response ? error.response.data : null,
-                      },
-                  })
-              );
-          } else {
-              showError("Please Check Your Internet connection");
-          }
+        if (error && error.response) {
+          checkHttpStatus(error.response);
+          dispatch(
+            base.getFailure(SUB_CATEGORY_CONST.GET_SUB_CATEGORY_FAILURE, {
+              error: {
+                data: error.response ? error.response.data : null,
+              },
+            })
+          );
+        } else {
+          showError("Please Check Your Internet connection");
+        }
       });
   };
 }
@@ -96,21 +96,7 @@ export function getSubCategoriesByCategory(categoryCode) {
         }
       })
       .catch((error) => {
-          // if(error && error.response) {
-              checkHttpStatus(error.response);
-          //     if(error.response.status!= 404) {
-          //         dispatch(
-          //             base.getFailure(SUB_CATEGORY_CONST.GET_SUB_CATEGORY_BY_C_ID_FAILURE, {
-          //                 error: {
-          //                     data: error.response ? error.response.data : null,
-          //                 },
-          //             })
-          //         );
-          //     }
-          // } else {
-          //     window.location.href = "/pages/error-page";
-          //     // showError("Please Check Your Internet connection");
-          // }
+        checkHttpStatus(error.response);
       });
   };
 }

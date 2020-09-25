@@ -1,8 +1,7 @@
 import { SEARCH_CUSTOMER_DATA } from "./actionTypes";
-import { AXIOS_INSTANCE, SEARCH_CUSTOMER_API, CONFIG } from "./apiEndPoints";
-import { checkHttpStatus, parseJSON, handleLoginRedirect } from "../utils";
+import { AXIOS_INSTANCE, SEARCH_CUSTOMER_API } from "./apiEndPoints";
+import { checkHttpStatus, parseJSON } from "../utils";
 import * as base from "./baseAction";
-import { showError } from "../helpers";
 
 export function searchCustomerDetails(formData) {
   const HEADER = {
@@ -40,21 +39,7 @@ export function searchCustomerDetails(formData) {
         }
       })
       .catch((error) => {
-        // if(error && error.response){
         checkHttpStatus(error.response);
-        //     if(error.response.status!= 404) {
-        //         dispatch(
-        //             base.getFailure(SEARCH_CUSTOMER_DATA.GET_CUSTOMER_FAILURE, {
-        //                 error: {
-        //                     data: error.response ? error.response.data : null,
-        //                 },
-        //             })
-        //         );
-        //     }
-        // } else {
-        //     window.location.href = "/pages/error-page";
-        // }
-
       });
   };
 }

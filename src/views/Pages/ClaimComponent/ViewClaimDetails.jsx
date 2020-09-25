@@ -76,8 +76,8 @@ class ViewClaimDetails extends React.Component {
       this.setState({
         getTicketAttachment: nextProps.getTicketAttachmentData.attachment
           ? getFileExtension(
-            nextProps.getTicketAttachmentData.attachment.slice(0, 5)
-          ) + nextProps.getTicketAttachmentData.attachment
+              nextProps.getTicketAttachmentData.attachment.slice(0, 5)
+            ) + nextProps.getTicketAttachmentData.attachment
           : "",
         mainLoader: false,
       });
@@ -101,12 +101,11 @@ class ViewClaimDetails extends React.Component {
         nextProps.ClaimAttachmentData.attachment !== ""
       ) {
         this.setState({
-          ClaimAttachmentData:
-            nextProps.ClaimAttachmentData.attachment
-              ? getFileExtension(
+          ClaimAttachmentData: nextProps.ClaimAttachmentData.attachment
+            ? getFileExtension(
                 nextProps.ClaimAttachmentData.attachment.slice(0, 5)
               ) + nextProps.ClaimAttachmentData.attachment
-              : false,
+            : false,
         });
         setTimeout(
           function () {
@@ -150,7 +149,7 @@ class ViewClaimDetails extends React.Component {
             <br />
             <span>
               <strong>{this.props.t("Claim.SENT_MESSAGE")}</strong>:
-                {/* {data ? data.sentMessage : ""} */}
+              {/* {data ? data.sentMessage : ""} */}
               <div
                 dangerouslySetInnerHTML={{
                   __html: data ? data.sentMessage : "",
@@ -165,7 +164,7 @@ class ViewClaimDetails extends React.Component {
 
   render() {
     const claimData = this.state.claimData;
-    console.log('datttttt-----', claimData);
+
     const { handleSubmit } = this.props;
 
     return (
@@ -189,7 +188,7 @@ class ViewClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.CLAIM_CHANNEL")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? getLangBasedDataLabel(claimData.claimSource)
                               : "none"}
                           </b>
@@ -202,7 +201,7 @@ class ViewClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.CREATION_DATE")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? dateTimeFormat(claimData.createDate)
                               : ""}
                           </b>
@@ -219,7 +218,7 @@ class ViewClaimDetails extends React.Component {
                           {" "}
                           {this.props.t("Claim.CATEGORY")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? getLangBasedDataLabel(claimData.category)
                               : "none"}
                           </b>
@@ -227,7 +226,7 @@ class ViewClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.SUB_CATEGORY")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? getLangBasedDataLabel(claimData.subCategory)
                               : "none"}
                           </b>
@@ -236,7 +235,7 @@ class ViewClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.EVENT_DATE")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? dateTimeFormat(claimData.eventDate)
                               : ""}
                           </b>
@@ -283,7 +282,7 @@ class ViewClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.CLAIM_SRC")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? getLangBasedStationLabel(claimData.claimStation)
                               : "none"}
                           </b>
@@ -292,10 +291,10 @@ class ViewClaimDetails extends React.Component {
                           <li className="list-group-item">
                             {this.props.t("Claim.EVENT_STATION")} :{" "}
                             <b>
-                              {claimData && claimData
+                              {claimData
                                 ? getLangBasedStationLabel(
-                                  claimData.eventStation
-                                )
+                                    claimData.eventStation
+                                  )
                                 : "none"}
                             </b>
                           </li>
@@ -319,10 +318,10 @@ class ViewClaimDetails extends React.Component {
                           <li className="list-group-item">
                             {this.props.t("Claim.DEPART_STN")} :{" "}
                             <b>
-                              {claimData && claimData
+                              {claimData
                                 ? getLangBasedStationLabel(
-                                  claimData.departureStation
-                                )
+                                    claimData.departureStation
+                                  )
                                 : "none"}
                             </b>
                           </li>
@@ -332,10 +331,10 @@ class ViewClaimDetails extends React.Component {
                           <li className="list-group-item">
                             {this.props.t("Claim.ARRIV_STN")} :{" "}
                             <b>
-                              {claimData && claimData
+                              {claimData
                                 ? getLangBasedStationLabel(
-                                  claimData.arrivalStation
-                                )
+                                    claimData.arrivalStation
+                                  )
                                 : "none"}
                             </b>
                           </li>
@@ -360,7 +359,7 @@ class ViewClaimDetails extends React.Component {
                         <li className="list-group-item">
                           {this.props.t("Claim.TRAVEL_DATE_TIME")} :{" "}
                           <b>
-                            {claimData && claimData
+                            {claimData
                               ? dateTimeFormat(claimData.travelDate)
                               : ""}
                           </b>
@@ -369,7 +368,7 @@ class ViewClaimDetails extends React.Component {
                           <li className="list-group-item">
                             {this.props.t("Claim.TARIF")} :{" "}
                             <b>
-                              {claimData && claimData
+                              {claimData
                                 ? getLangBasedTarifLabel(claimData.tarif)
                                 : "none"}
                             </b>
@@ -379,7 +378,7 @@ class ViewClaimDetails extends React.Component {
                           <li className="list-group-item">
                             {this.props.t("Claim.UPDATE_DATE")} :{" "}
                             <b>
-                              {claimData && claimData
+                              {claimData
                                 ? dateTimeFormat(claimData.lastModifiedDate)
                                 : ""}
                             </b>
@@ -387,7 +386,11 @@ class ViewClaimDetails extends React.Component {
                         )}
                         <li className="list-group-item">
                           {this.props.t("Claim.ACTION_TAKEN")} :{" "}
-                          <b>{claimData && claimData.actionTaken ? claimData.actionTaken : "Aucune"}</b>
+                          <b>
+                            {claimData && claimData.actionTaken
+                              ? claimData.actionTaken
+                              : "Aucune"}
+                          </b>
                         </li>
                         <li className="list-group-item">
                           <a
@@ -416,8 +419,7 @@ class ViewClaimDetails extends React.Component {
                             download={"Ticket_Attachment"}
                           ></a>
                         </li>
-                        {/* )} */}
-                        {/* {this.state.ClaimAttachmentData && ( */}
+
                         <li className="list-group-item">
                           <a
                             href="javscript:void(0)"
@@ -456,7 +458,7 @@ class ViewClaimDetails extends React.Component {
                           <Button
                             className="btn btn-success"
                             onClick={() => this.showInputField()}
-                          // disabled={this.state.disabled}
+                            // disabled={this.state.disabled}
                           >
                             {this.props.t("Claim.APPROVE")}
                           </Button>
@@ -490,22 +492,24 @@ class ViewClaimDetails extends React.Component {
                       </Col>
                     </Row>
                   )}
-                  {claimData && claimData.claimStatus === "3" && <Row>
-                    {" "}
-                    {claimData && (
-                      <Col md={12} className="mt-2">
-                        <Card className="mb-1 p-2">
-                          <strong>
-                            {this.props.t("Claim.CLAIM_COMMUNICATION")}
-                          </strong>
-                        </Card>
-                      </Col>
-                    )}
-                    {claimData &&
-                      this.showClaimCommunication(
-                        claimData.claimCommunication
+                  {claimData && claimData.claimStatus === "3" && (
+                    <Row>
+                      {" "}
+                      {claimData && (
+                        <Col md={12} className="mt-2">
+                          <Card className="mb-1 p-2">
+                            <strong>
+                              {this.props.t("Claim.CLAIM_COMMUNICATION")}
+                            </strong>
+                          </Card>
+                        </Col>
                       )}
-                  </Row>}
+                      {claimData &&
+                        this.showClaimCommunication(
+                          claimData.claimCommunication
+                        )}
+                    </Row>
+                  )}
                 </CardBody>
               </Card>
             </Container>
@@ -534,4 +538,3 @@ const mapStateToProps = (state) => {
 };
 
 export default compose(translate, connect(mapStateToProps))(ViewClaimDetails);
-

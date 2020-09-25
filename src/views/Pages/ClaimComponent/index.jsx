@@ -14,9 +14,7 @@ import PopupModel from "./PopupModel";
 import { Field, reduxForm } from "redux-form";
 import { createCustomer } from "../../../actions/createCustomer";
 import { AvForm, AvField } from "availity-reactstrap-validation";
-import {
-  renderTextField
-} from "../CommonComponents/RenderTextField";
+import { renderTextField } from "../CommonComponents/RenderTextField";
 import { translate } from "react-multi-lang";
 import { connect } from "react-redux";
 import compose from "compose-function";
@@ -24,8 +22,6 @@ import { getClaimChannel } from "../../../actions/claimAction";
 import { getStations } from "../../../actions/stationAction";
 import { CreateInitialClaim } from "./claim";
 import { getCategories } from "../../../actions/categoryAction";
-import { getTrainType } from "../../../actions/trainTypeAction";
-import { getTarif } from "../../../actions/tarifAction";
 import { showError, showSuccess } from "../../../helpers";
 import { searchCustomerDetails } from "../../../actions/searchCustomer";
 import LoaderComponent from "../CommonComponents/Loader";
@@ -55,8 +51,9 @@ class InitiateClaim extends React.Component {
     window.scrollTo(0, 0);
   }
   componentWillMount() {
-    this.props.dispatch(base.getRequest(SEARCH_CUSTOMER_DATA.GET_CUSTOMER_REQUEST));
-
+    this.props.dispatch(
+      base.getRequest(SEARCH_CUSTOMER_DATA.GET_CUSTOMER_REQUEST)
+    );
   }
 
   componentWillReceiveProps = (nextProps, props) => {
@@ -71,7 +68,7 @@ class InitiateClaim extends React.Component {
     if (
       nextProps.subCategoryDataByCategory &&
       nextProps.subCategoryDataByCategory !==
-      this.props.subCategoryDataByCategory
+        this.props.subCategoryDataByCategory
     ) {
       this.setState({
         subCategoryDataByCategory: nextProps.subCategoryDataByCategory,
@@ -82,7 +79,7 @@ class InitiateClaim extends React.Component {
       nextProps.initialValues !== this.props.initialValues
     ) {
       this.setState({ userData: nextProps.initialValues, showModal: false });
-      this.scrollUp = () => { };
+      this.scrollUp = () => {};
     }
     if (
       nextProps.stationData &&
@@ -101,7 +98,7 @@ class InitiateClaim extends React.Component {
         searchCustomerDetails({ email: this.state.emailData })
       );
       showSuccess("Le client est ajouté avec succès");
-      this.scrollUp = () => { };
+      this.scrollUp = () => {};
     }
     if (
       nextProps.channelData &&
@@ -147,16 +144,28 @@ class InitiateClaim extends React.Component {
         errorData: nextProps.isCreateClaimError,
       });
     }
-    if (nextProps.isGetCustomerFail && nextProps.isGetCustomerFail !== this.props.isGetCustomerFail) {
+    if (
+      nextProps.isGetCustomerFail &&
+      nextProps.isGetCustomerFail !== this.props.isGetCustomerFail
+    ) {
       // showError(this.props.t("Claim.CUSTOMER_DATA_NOT_FOUND"));
       showError(nextProps.isGetCustomerFail);
     }
-    if (nextProps.customerRegistrationFail && nextProps.customerRegistrationFail !== this.props.customerRegistrationFail) {
+    if (
+      nextProps.customerRegistrationFail &&
+      nextProps.customerRegistrationFail !== this.props.customerRegistrationFail
+    ) {
       showError(nextProps.customerRegistrationFail);
     }
-    if (nextProps.isNoSubCategory && nextProps.isNoSubCategory !== this.props.isNoSubCategory) {
+    if (
+      nextProps.isNoSubCategory &&
+      nextProps.isNoSubCategory !== this.props.isNoSubCategory
+    ) {
       showError(nextProps.isNoSubCategory);
-      this.setState({ resetSubCategory: nextProps.isNoSubCategory, subCategoryDataByCategory: null })
+      this.setState({
+        resetSubCategory: nextProps.isNoSubCategory,
+        subCategoryDataByCategory: null,
+      });
     }
   };
   handleFileInput = (e, type) => {
@@ -197,12 +206,10 @@ class InitiateClaim extends React.Component {
 
   uploadFile(event) {
     let file = event.target.files[0];
-    // console.log(file);
 
     if (file) {
       let data = new FormData();
       data.append("file", file);
-      // axios.post('/files', data)...
     }
   }
   openModal = () => {
@@ -219,37 +226,33 @@ class InitiateClaim extends React.Component {
     if (formProps.civilite === "0") {
       delete formProps.civilite;
     }
-        if (
-            formProps.prenom &&
-            formProps.email &&
-            formProps.nom
-        ) {
-            this.setState({
-                emailData: formProps.email,
-            });
-            const requestData = {
-                // CIN: formProps.Cin,
-                civility: formProps.civilite,
-                prenom: formProps.prenom,
-                nom: formProps.nom,
-                tel: formProps.tel,
-                pays: formProps.pays,
-                ville: formProps.ville,
-                email: formProps.email,
-                adresse: formProps.adresse,
-                profession: formProps.profession,
-            };
-            if(formProps.civilite) {
-                this.props.dispatch(createCustomer(requestData));
-                this.setState({ disableText: true }, () => {
-                    this.scrollDown();
-                });
-            } else {
-                showError(this.props.t("Claim.PLEASE_SELECT_CIVILITY_AS_REQUIRED_FIELD"));
-            }
-        }
-     else {
-        showError(this.props.t("Claim.PLEASE_FILL_ALL_REQUIRED_FIELDS"));
+    if (formProps.prenom && formProps.email && formProps.nom) {
+      this.setState({
+        emailData: formProps.email,
+      });
+      const requestData = {
+        civility: formProps.civilite,
+        prenom: formProps.prenom,
+        nom: formProps.nom,
+        tel: formProps.tel,
+        pays: formProps.pays,
+        ville: formProps.ville,
+        email: formProps.email,
+        adresse: formProps.adresse,
+        profession: formProps.profession,
+      };
+      if (formProps.civilite) {
+        this.props.dispatch(createCustomer(requestData));
+        this.setState({ disableText: true }, () => {
+          this.scrollDown();
+        });
+      } else {
+        showError(
+          this.props.t("Claim.PLEASE_SELECT_CIVILITY_AS_REQUIRED_FIELD")
+        );
+      }
+    } else {
+      showError(this.props.t("Claim.PLEASE_FILL_ALL_REQUIRED_FIELDS"));
     }
   };
 
@@ -285,7 +288,7 @@ class InitiateClaim extends React.Component {
                           <Row>
                             <Label md={3}>
                               {this.props.t("Claim.CIVILITY")}
-                                <span className="text-danger">*</span>
+                              <span className="text-danger">*</span>
                             </Label>
                             <Col xs={12} md={9}>
                               <FormGroup>
@@ -377,7 +380,8 @@ class InitiateClaim extends React.Component {
                           </Row>
                           <br />
                           <Row>
-                            <Label md={3}>{this.props.t("Claim.EMAIL")}{" "}
+                            <Label md={3}>
+                              {this.props.t("Claim.EMAIL")}{" "}
                               <span className="text-danger">*</span>
                             </Label>
                             <Col xs={12} md={9}>
@@ -518,7 +522,8 @@ class InitiateClaim extends React.Component {
                         </Col>
                       </Row>
                       <Row>
-                        <Label md={3}>{this.props.t("Claim.ADDRESS")}{" "}
+                        <Label md={3}>
+                          {this.props.t("Claim.ADDRESS")}{" "}
                           <span className="text-danger"></span>
                         </Label>
                         <Col xs={12} md={12}>
@@ -528,7 +533,6 @@ class InitiateClaim extends React.Component {
                               type="text"
                               component={renderTextField}
                               placeholder={this.props.t("Claim.ADDRESS")}
-                              // validate={{ address: true }}
                               tag={Field}
                               disabled={
                                 this.props.initialValues ||
@@ -549,7 +553,6 @@ class InitiateClaim extends React.Component {
                             size="lg"
                             className="mb-3 border-rm mx-3 btn-width"
                             onClick={this.openModal}
-                          // disabled={this.props.initialValues}
                           >
                             {this.props.t("Claim.SEARCH")}
                           </Button>
@@ -617,10 +620,12 @@ const mapStateToProps = (state) => {
     trainTypeData: state.trainType.getTrinType,
     postClaimData: state.claim.postClaimData,
     successClaimCode: state.claim.successClaimCode,
-    isCreateClaimError: state.claim.isCreateClaimError ? state.claim.isCreateClaimError : null,
+    isCreateClaimError: state.claim.isCreateClaimError
+      ? state.claim.isCreateClaimError
+      : null,
     isGetCustomerFail: state.serachCustomerInfo.isGetCustomerFail,
     customerRegistrationFail: state.createCustomer.customerRegistrationFail,
-    isNoSubCategory: state.subCategory.isNoSubCategory
+    isNoSubCategory: state.subCategory.isNoSubCategory,
   };
 };
 

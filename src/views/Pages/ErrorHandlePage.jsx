@@ -2,7 +2,7 @@ import React from "react";
 import compose from "compose-function";
 import { translate } from "react-multi-lang";
 import bgImage from "assets/img/plain-white.jpg";
-import { Field, reduxForm } from "redux-form";
+import { reduxForm } from "redux-form";
 class ErrorHandlePage extends React.Component {
     constructor(props) {
         super(props);

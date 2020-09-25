@@ -12,7 +12,6 @@ import {
   Button,
 } from "reactstrap";
 import { connect } from "react-redux";
-import ReactTable from "react-table";
 import compose from "compose-function";
 import { translate } from "react-multi-lang";
 import { Field, reduxForm, reset } from "redux-form";
@@ -63,14 +62,12 @@ class ResearchClaim extends React.Component {
     this.props.dispatch(getStations());
     this.props.dispatch(getCategories());
     window.scrollTo(0, 0);
-    // this.props.dispatch(getClaims());
   }
   componentWillReceiveProps = (nextProps) => {
     if (
       nextProps.categoryData &&
       nextProps.categoryData !== this.props.categoryData
     ) {
-      // console.log(nextProps.categoryData);
       this.setState({
         categoryData: nextProps.categoryData,
       });
@@ -78,7 +75,7 @@ class ResearchClaim extends React.Component {
     if (
       nextProps.subCategoryDataByCategory &&
       nextProps.subCategoryDataByCategory !==
-      this.props.subCategoryDataByCategory
+        this.props.subCategoryDataByCategory
     ) {
       this.setState({
         subCategoryDataByCategory: nextProps.subCategoryDataByCategory,
@@ -93,35 +90,11 @@ class ResearchClaim extends React.Component {
         mainLoader: false,
       });
     }
-    // if (
-    //   nextProps.getClaimsData &&
-    //   nextProps.getClaimsData !== this.props.getClaimsData
-    // ) {
-    //   console.log(nextProps.getClaimsData);
-     
-    //   this.setState({ mainLoader: false });
-    //   let categories = [];
-    //   if (nextProps.getClaimsData && nextProps.getClaimsData.length)
-    //     nextProps.getClaimsData.map((category, key) => {
-    //       categories.push({
-     
-    //         refNumber: category.referenceNo 
-    //         trainNum:category.eventLocation === "Gare") || (category.eventLocation === "Other")) ? "Aucune" : category.trainNumber,
-    //         createDate: category ? dateTimeFormat(category.createDate) : "",
-    //         category: category ? getLangBasedDataLabel(category.category) : "",
-    //        
-    //         actions: {
-    //           key: key,
-    //         },
-    //       });
-    //     });
-    //   this.setState({ categories });
-    // }
+
     if (
       nextProps.getClaimsData &&
       nextProps.getClaimsData !== this.props.getClaimsData
     ) {
-
       this.setState({
         getClaimsData: nextProps.getClaimsData,
         loading: false,
@@ -135,9 +108,11 @@ class ResearchClaim extends React.Component {
       showError(this.props.t("ErrorMsg.NO_CLAIMS"));
       this.setState({ loading: false, hideOnError: false });
     }
-    if (nextProps.isNoSubCategory && nextProps.isNoSubCategory !== this.props.isNoSubCategory) {
-      // console.log(nextProps.isNoSubCategory)
-      this.setState({ subCategoryDataByCategory: null })
+    if (
+      nextProps.isNoSubCategory &&
+      nextProps.isNoSubCategory !== this.props.isNoSubCategory
+    ) {
+      this.setState({ subCategoryDataByCategory: null });
     }
   };
   startDate = (event) => {
@@ -158,13 +133,12 @@ class ResearchClaim extends React.Component {
       endDate: "",
       startDate: "",
       hideOnError: false,
-      subCategoryDataByCategory: null
+      subCategoryDataByCategory: null,
     });
     this.props.dispatch(reset("ResearchClaim"));
   };
 
   showOptions = (data) => {
-    // console.log(data);
     if (data && data.length) {
       return data.map((categories, key) => {
         return (
@@ -190,7 +164,6 @@ class ResearchClaim extends React.Component {
     }
   };
   onSubmit = (formProps) => {
-    console.log(formProps);
     if (this.state.startDate) {
       formProps.startDate = this.state.startDate;
     }
@@ -203,56 +176,57 @@ class ResearchClaim extends React.Component {
       searchs.push({
         searchField: "claimStatus",
         value: formProps.claimStatus,
-      })
+      });
     }
     if (formProps.startDate) {
       searchs.push({
         searchField: "startDate",
-        value: moment(formProps.startDate).format('YYYY-MM-DD'),
-      })
+        value: moment(formProps.startDate).format("YYYY-MM-DD"),
+      });
     }
     if (formProps.endDate) {
       searchs.push({
         searchField: "endDate",
-        value: moment(formProps.endDate).format('YYYY-MM-DD')
-      })
+        value: moment(formProps.endDate).format("YYYY-MM-DD"),
+      });
     }
     if (formProps.subCategoryCode) {
       searchs.push({
         searchField: "subCategoryCode",
         value: formProps.subCategoryCode,
-      })
+      });
     }
     if (formProps.categoryCode) {
       searchs.push({
         searchField: "categoryCode",
         value: formProps.categoryCode,
-      })
+      });
     }
     if (formProps.eventStationCode) {
       searchs.push({
         searchField: "eventStationCode",
         value: formProps.eventStationCode,
-      })
+      });
     }
     this.props.dispatch(getClaims({ searchs }));
     this.setState({ loading: true });
   };
 
-
   viweClaim = (e) => {
     this.props.history.push(`/pages/view-claim-details?code=${e}`);
   };
-  // updateClaim = (e) => {
-  //   this.props.history.push(`/pages/update-claim?code=${e}`);
-  // };
 
   showClaimsTable = (claimsData) => {
     return claimsData.map((data, key) => {
       return (
         <tr>
           <th>{data ? data.referenceNo : ""}</th>
-          <th>{((data && data.eventLocation === "Gare") || (data && data.eventLocation === "Other")) ? "Aucune" : data.trainNumber}</th>
+          <th>
+            {(data && data.eventLocation === "Gare") ||
+            (data && data.eventLocation === "Other")
+              ? "Aucune"
+              : data.trainNumber}
+          </th>
           <th>{data ? dateTimeFormat(data.createDate) : ""}</th>
           <th>{data ? getLangBasedDataLabel(data.category) : ""}</th>
 
@@ -301,16 +275,21 @@ class ResearchClaim extends React.Component {
               </label>
             </div>
             <div>
-              {data && data.claimStatus !== "5" && data.claimStatus !== "3" && data.claimStatus!== "2" && (
-                <Link className="text-decoration-none" target="_blank" to={`/pages/update-claim?code=${data.code}`}>
-                  <label
-                    className="enablePointer"
+              {data &&
+                data.claimStatus !== "5" &&
+                data.claimStatus !== "3" &&
+                data.claimStatus !== "2" && (
+                  <Link
+                    className="text-decoration-none"
+                    target="_blank"
+                    to={`/pages/update-claim?code=${data.code}`}
                   >
-                    <i class="fa fa-edit text-dark"></i> &nbsp;{" "}
-                    {this.props.t("Claim.MODIFY")}
-                  </label>
-                </Link>
-              )}
+                    <label className="enablePointer">
+                      <i class="fa fa-edit text-dark"></i> &nbsp;{" "}
+                      {this.props.t("Claim.MODIFY")}
+                    </label>
+                  </Link>
+                )}
             </div>
           </td>
         </tr>
@@ -319,14 +298,6 @@ class ResearchClaim extends React.Component {
   };
   render() {
     const { handleSubmit } = this.props;
-    const header = {
-      RefNumber: this.props.t("Claim.REF_N"),
-      trainNum: this.props.t("Claim.TRAIN_NUM"),
-      createDate: this.props.t("Claim.CREATE_DATE"),
-      category: this.props.t("Claim.CATEGORY"),
-      status:this.props.t("Claim.STATUS"),
-      actions:this.props.t("Claim.ACTION")
-    };
     return (
       <div>
         {" "}
@@ -368,9 +339,7 @@ class ResearchClaim extends React.Component {
                             <option value="3">
                               {this.props.t("Claim.APPROVED")}
                             </option>
-                            {/*<option value="4">*/}
-                            {/*  {this.props.t("Claim.REJECTED")}*/}
-                            {/*</option>*/}
+
                             <option value="5">
                               {this.props.t("Claim.TEMP_APPROVED")}
                             </option>
@@ -412,7 +381,6 @@ class ResearchClaim extends React.Component {
                               readOnly: true,
                               placeholder: this.props.t("Claim.SELECT_DATE"),
                             }}
-
                             onChange={(e) => this.endDate(e)}
                           />
                         </FormGroup>
@@ -431,7 +399,7 @@ class ResearchClaim extends React.Component {
                             placeholder={""}
                             className="form-control"
                             onChange={(e) => this.getSubCategoriesByCategory(e)}
-                          // validate={[required]}
+                            // validate={[required]}
                           >
                             <option value="">
                               {this.props.t("Claim.SELECT_CATEGORY")}
@@ -439,8 +407,8 @@ class ResearchClaim extends React.Component {
                             {this.showOptions(
                               this.state.categoryData
                                 ? getLangBasedItems(
-                                  this.state.categoryData.categoryClients
-                                )
+                                    this.state.categoryData.categoryClients
+                                  )
                                 : null
                             )}
                           </Field>
@@ -457,8 +425,8 @@ class ResearchClaim extends React.Component {
                             component="select"
                             placeholder={""}
                             className="form-control"
-                          // onChange={(e) => this.getDepatureStationId(e)}
-                          // validate={[required]}
+                            // onChange={(e) => this.getDepatureStationId(e)}
+                            // validate={[required]}
                           >
                             <option value="">
                               {this.props.t("Claim.SELECT_SUB_CATEGORY")}
@@ -466,9 +434,9 @@ class ResearchClaim extends React.Component {
                             {this.showOptions(
                               this.state.subCategoryDataByCategory
                                 ? getLangBasedItems(
-                                  this.state.subCategoryDataByCategory
-                                    .subCategoryClients
-                                )
+                                    this.state.subCategoryDataByCategory
+                                      .subCategoryClients
+                                  )
                                 : null
                             )}
                           </Field>
@@ -484,7 +452,6 @@ class ResearchClaim extends React.Component {
                             name="eventStationCode"
                             component="select"
                             required
-                            // validate={[required]}
                             className="form-control"
                           >
                             <option value="">
@@ -493,8 +460,8 @@ class ResearchClaim extends React.Component {
                             {this.showOptions(
                               this.state.stationData
                                 ? getLangBasedStations(
-                                  this.state.stationData.listGare
-                                )
+                                    this.state.stationData.listGare
+                                  )
                                 : null
                             )}
                           </Field>
@@ -525,89 +492,7 @@ class ResearchClaim extends React.Component {
                 </Card>
               </Form>
               {this.state.getClaimsData && this.state.hideOnError && (
-               
-          //           <Row>
-          //   <Col md="12">
-          //     <Card className="main-card mb-3">
-          //       <CardBody className="text-center">
-          //         <ReactTable
-          //           data={categories}
-          //           columns={[
-          //             {
-          //               columns: [
-          //                 {
-          //                   Header: header.RefNumber,
-          //                   accessor: "refNumber",
-          //                 },
-          //                 {
-          //                   Header: header.trainNum,
-          //                   accessor: "trainNum",
-          //                 },
-          //                 {
-          //                   Header: header.createDate,
-          //                   accessor: "createDate",
-          //                 },
-          //                 {
-          //                   Header: header.category,
-          //                   accessor: "category",
-          //                 },
-          //                 {
-          //                   Header: header.status,
-          //                   accessor: "status",
-          //                 },
-          //                 {
-          //                   Header: header.actions,
-          //                   accessor: "actions",
-          //                   sortable: false,
-          //                   filterable: false,
-          //                   Cell: (row) => (
-          //                     <div>
-          //                       <div className="widget-content p-0">
-          //                         <div className="widget-content-wrapper">
-          //                           <div className="ml-4 d-inline">
-          //                             {canManage(permissions.deletable) && (
-          //                               <SubmitBtnLoader
-          //                                 className="btn btn-primary"
-          //                                 title={this.props.t("Common.DELETE")}
-          //                                 onClick={(e) =>
-          //                                   this.deleteChannel(
-          //                                     row.index,
-          //                                     row.original.actions.key
-          //                                   )
-          //                                 }
-          //                                 label={
-          //                                   <i className="fa fa-trash-alt"></i>
-          //                                 }
-          //                                 loading={
-          //                                   row.original.actions.key ===
-          //                                     this.state.rowKey &&
-          //                                   this.state.loading
-          //                                 }
-          //                               />
-          //                             )}
-          //                           </div>
-          //                         </div>
-          //                       </div>
-          //                     </div>
-          //                   ),
-          //                 },
-          //               ],
-          //             },
-          //           ]}
-          // defaultPageSize={10}
-          // showPaginationTop
-          // showPaginationBottom={false}
-          // className="-striped -highlight"
-          //           
-                   
-          //         
-          //           {...this.translations}
-          //         />
-          //       </CardBody>
-          //     </Card>
-          //   </Col>
-          // </Row>
-          <Card>
+                <Card>
                   <CardBody>
                     <Table striped>
                       <thead className="t-head-color">
@@ -618,7 +503,6 @@ class ResearchClaim extends React.Component {
                           <th>{this.props.t("Claim.CATEGORY")}</th>
                           <th>{this.props.t("Claim.STATUS")}</th>
                           <th>{this.props.t("Claim.ACTION")}</th>
-                          
                         </tr>
                       </thead>
                       <tbody className="t-body-color">
@@ -650,17 +534,14 @@ ResearchClaim = reduxForm({
 })(ResearchClaim);
 
 const mapStateToProps = (state) => {
-  console.log(state.claim.isNoSubCategory);
   return {
     categoryData: state.category.categoryData,
     subCategoryDataByCategory: state.subCategory.subCategoryDataByCategory,
     stationData: state.station.stationData,
-    // getClaimsData: state.claim.getClaimsData
-    // ? state.claim.getClaimsData.claimClients
-    // : [],
+
     getClaimsData: state.claim.getClaimsData,
     noClaimError: state.claim.noClaimError,
-    isNoSubCategory: state.subCategory.isNoSubCategory
+    isNoSubCategory: state.subCategory.isNoSubCategory,
   };
 };
 

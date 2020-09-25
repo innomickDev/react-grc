@@ -16,7 +16,6 @@ import bgImage from "assets/img/login-bg.jpg";
 import companyLogo from "assets/img/svg/logo.svg";
 import { Field, reduxForm } from "redux-form";
 import { loginSubmit } from "../../actions/loginAction";
-import { myProfile } from "../../actions/accoutAction";
 import { showError } from "helpers";
 import SubmitBtnLoader from "../Pages/CommonComponents/SubmitBtnLoader";
 import { AvForm, AvField } from "availity-reactstrap-validation";
@@ -77,7 +76,7 @@ class LoginPageComponent extends React.Component {
           this.props.history.push("/pages/research-claim");
         }
       }).catch((error) => {
-        console.log(error);
+    
       });
     }
     if (
